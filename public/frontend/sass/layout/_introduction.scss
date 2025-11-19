@@ -1,115 +1,517 @@
-.banner-section{
-    position: relative;
-    padding-top: 170px;
-    padding-bottom: 120px;
-    overflow: hidden;
-    @media only screen and (max-width: 575px) {
-        padding-top: 130px;
-        padding-bottom: 80px;
+/*-------------------------------------------------
+  [ ## Banner Section ]
+*/
+
+.banner-section {
+      overflow: hidden;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: $bg--gray;
+    // Optional background image - add via inline style or CSS
+    // background-image: url('./assets/images/banner/qrtip-bg-light.webp');
+    
+    .banner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(
+            135deg,
+            rgba($white, 0.9) 0%,
+            rgba(lighten($base--color, 90%),  0.8) 100%
+        );
     }
-    .banner-thumb{
+    
+    .container {
         position: relative;
-        text-align: right;
-        @media only screen and (max-width: 991px) {
-            text-align: left;
+        z-index: 2;
+    }
+}
+
+// Banner Content
+.banner-content {
+    color: $color--heading;
+    padding: 40px 0;
+    
+    .banner-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 25px;
+        color: $color--heading;
+        animation: titleSlideUp 0.8s ease-out;
+        
+        span {
+            color: $base--color;
+            display: block;
         }
-        img{
-            width: 80%;
-            margin-left: auto;
-            @media only screen and (max-width: 991px) {
-                margin-left: 0;
-            }
-        }
-        .banner-element-one{
-            position: absolute;
-            top: -8%;
-            right: -12%;
-            animation: scroll-down 6s cubic-bezier(.75,.02,.31,.87) infinite;
-            @media only screen and (max-width: 991px) {
-                right: -8px;
-            }
-            img{
-                width: 90%;
-            }
+        
+        @media (min-width: 1400px) {
+            font-size: 4rem;
         }
     }
-    .banner-content{
-        .title{
-            width: 95%;
-            color: $white;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            @media only screen and (max-width: 1199px) {
-                width: 100%;
-            }
-            span{
-                color: $base--color;
-                display: initial;
+    
+    .banner-description {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        margin-bottom: 40px;
+        color: $color--text;
+        max-width: 540px;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+}
+
+// Banner Actions
+.banner-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+
+// Video Button with Professional Ripple
+.video-button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+    .video-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: transparent;
+        // border: 1px solid rgba($base--color, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.4s ease;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba($base--color, 0.4);
+            animation: ripple 3s linear infinite;
+            opacity: 0;
+        }
+
+        
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba($base--color, 0.3);
+            animation: ripple 3s linear infinite 1.5s;
+            opacity: 0;
+        }
+        
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid $base--color;
+            margin-left: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        &:hover {
+            background: $base--color;
+            border-color: $base--color;
+            transform: scale(1.1);
+            
+            .play-icon {
+                border-left-color: $white;
             }
         }
-        p{
-            color: $white;
-            font-size: 18px;
-            @media only screen and (max-width: 575px) {
-                font-size: 14px;
+        
+        &:active {
+            transform: scale(1.05);
+        }
+    }
+    
+    .video-label {
+        color: $color--text;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    
+    &:hover .video-label {
+        color: $base--color;
+    }
+}
+
+// Banner Image - Clean without shadows
+.banner-image-wrapper {
+    position: relative;
+    text-align: center;
+    
+    .banner-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transform: translateZ(0);
+        
+        &:hover {
+            transform: translateY(-5px);
+        }
+    }
+}
+
+// Professional Ripple Animation
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+// Content Animations
+@keyframes titleSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive Design
+@media (max-width: 1199px) {
+    .banner-content .banner-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .banner-section {
+        text-align: center;
+        padding: 100px 0 60px;
+        min-height: auto;
+        
+        .banner-content { 
+            padding-bottom: 0;
+            .banner-title {
+                font-size: 2.5rem;
+            }
+            
+            .banner-description {
+                font-size: 1.1rem;
+                margin: 0 auto 35px;
             }
         }
-        .banner-btn{
+        
+        .banner-actions {
+            justify-content: center;
+        }
+        
+        .banner-image-wrapper {
             margin-top: 40px;
         }
     }
 }
-.inner-banner-section{
-    .banner-content{
-        text-align: center;
-        .title{
-            font-size: 45px;
-            @media only screen and (max-width: 991px) {
-                font-size: 35px;
-            }
-            @media only screen and (max-width: 575px) {
-                font-size: 26px;
-            }
+
+@media (max-width: 768px) {
+    .banner-content .banner-title {
+        font-size: 2.2rem;
+    }
+    
+    .banner-actions {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .video-button-wrapper {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-content .banner-title {
+        font-size: 1.8rem;
+    }
+    
+    .banner-content .banner-description {
+        font-size: 1rem;
+    }
+    
+    
+    .video-button {
+        width: 55px;
+        height: 55px;
+        
+        .play-icon {
+            border-top-width: 9px;
+            border-bottom-width: 9px;
+            border-left-width: 14px;
         }
     }
 }
-.breadcrumb {
-    background-color: $base--color;
-    padding: 15px;
-    margin-bottom: 0;
-    margin-top: -30px;
-    position: relative;
-    justify-content: center;
-    border-radius: 15px;
-}
-.breadcrumb li{
-    font-size: 16px;
-    font-weight: 600;
-}
-.breadcrumb-item a{
-    position: relative;
-    z-index: 2;
-    color: $white;
-    @media only screen and (max-width: 991px) {
-        font-size: 18px;
+//____________________
+// section heading 
+//_____________________
+
+.section-heading {
+  padding-bottom: 40px;
+  background: transparent;
+
+  &__content {
+    align-items: center;
+    
+    .section-subtitle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap:0px;
+      margin-bottom: 15px;
+
+      .subtitle-icon {
+        position: relative;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        
+        i {
+          font-size: 24px;
+          color: $base--color;
+          z-index: 2;
+          position: relative;
+        }
+
+        // Existing top and bottom scanning lines
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: $base--color;
+          animation: scanHorizontal 2s linear infinite;
+          z-index: 1;
+        }
+
+        &::before {
+          top: 0;
+          animation-delay: 0s;
+        }
+
+        &::after {
+          bottom: 0;
+          animation-delay: 1s;
+        }
+
+        // New moving scanning line (top to bottom shadow)
+        .scan-line {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 3px;
+          background: linear-gradient(to bottom, 
+            transparent 0%, 
+            rgba($base--color, 0.8) 50%, 
+            transparent 100%);
+          animation: scanVertical 2s ease-in-out infinite;
+          z-index: 1;
+          box-shadow: 0 0 10px rgba($base--color, 0.5);
+        }
+      }
+
+      .subtitle {
+        display: inline-block;
+        position: relative;
+        padding: 0 25px;
+        padding-left: 5px ;
+        font-family: 'Pacifico', cursive;
+        font-size: 20px;
+        color: $base--color;
+        line-height: 1;
+        margin: 0;
+      }
     }
-}
-.breadcrumb-item.active{
-    color: $white;
-    position: relative;
-    z-index: 2;
-    @media only screen and (max-width: 991px) {
-        font-size: 18px;
+
+    .title {
+      font-family: $font_heading;
+      font-size: 48px;
+      font-weight: 900;
+      color: $color--heading;
+      line-height: 1.3;
+      margin-bottom: 15px;
+      text-transform: none;
+
+      .title-strong {
+        color: $base--color;
+        position: relative;
+      }
     }
-}
-.breadcrumb-item.active::before{
-    content: "/";
-    font-weight: 600;
-    color: $white;
-    left: 0;
-    top: 1px;
-    position: relative;
-    @media only screen and (max-width: 991px) {
-        font-size: 18px;
+
+    .description {
+      font-family: $font_body;
+      font-size: 18px;
+      line-height: 1.6;
+      color: $color--text;
+      max-width: 800px;
+      margin: 0 auto;
     }
+  }
+}
+
+// Horizontal scanning animation (existing lines)
+@keyframes scanHorizontal {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+// Vertical scanning animation (new moving line)
+@keyframes scanVertical {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+// Left alignment for screens > 992px
+@media (min-width: 993px) {
+  .section-heading--left {
+    .section-heading__content {
+      text-align: left;
+      
+      .section-subtitle {
+        justify-content: flex-start;
+      }
+      
+      .description {
+        margin-left: 0;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+// Tablet devices
+@media (max-width: 768px) {
+  .section-heading {
+    padding: 60px 0;
+    
+    &__content {
+      .section-subtitle {
+        .subtitle-icon {
+          width: 45px;
+          height: 45px;
+          
+          i {
+            font-size: 20px;
+          }
+        }
+        
+        .subtitle {
+          font-size: 18px;
+        }
+      }
+      
+      .title {
+        font-size: 36px;
+      }
+      
+      .description {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Mobile devices
+@media (max-width: 576px) {
+  .section-heading {
+    padding: 40px 0;
+    
+    &__content {
+      .section-subtitle {
+        flex-direction: column;
+        gap: 10px;
+        
+        .subtitle-icon {
+          width: 40px;
+          height: 40px;
+          
+          i {
+            font-size: 18px;
+          }
+        }
+        
+        .subtitle {
+          font-size: 16px;
+          padding: 0 20px;
+        }
+      }
+      
+      .title {
+        font-size: 28px;
+      }
+    }
+  }
 }

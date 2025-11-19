@@ -16,6 +16,7 @@ Route::prefix("user")->name("user.")->group(function(){
     Route::controller(DashboardController::class)->group(function(){
         Route::get('dashboard','index')->name('dashboard');
         Route::post('logout','logout')->name('logout');
+        Route::post('delete/account','deleteAccount')->name('delete.account')->middleware('app.mode');
     });
 
     Route::controller(ProfileController::class)->prefix("profile")->name("profile.")->group(function(){
@@ -67,6 +68,7 @@ Route::prefix("user")->name("user.")->group(function(){
     Route::controller(SecurityController::class)->prefix("security")->name('security.')->group(function(){
         Route::get('google/2fa','google2FA')->name('google.2fa');
         Route::post('google/2fa/status/update','google2FAStatusUpdate')->name('google.2fa.status.update');
+        Route::post('/google-2fa/verify', 'google2FAVerify')->name('google.2fa.verify');
     });
 
     Route::controller(KycController::class)->prefix('kyc')->name('kyc.')->group(function() {

@@ -1,15 +1,12 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
 @push('css')
     
 @endpush
 
 @section('content')
-    <section class="account-section bg_img" data-background="{{ asset('public/frontend/images/element/account.png') }}">
-        <div class="right float-end">
-            <div class="account-header text-center">
-                <a class="site-logo" href="{{ setroute('frontend.index') }}"><img src="{{ asset('public/frontend/images/logo/logo.png') }}" alt="logo"></a>
-            </div>
+   <div class="account-section ptb-80">
+        <div class="account-area">
             <div class="account-middle">
                 <div class="account-form-area">
                     <h3 class="title">{{ __("Account Authorization") }}</h3>

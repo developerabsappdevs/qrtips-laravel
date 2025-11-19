@@ -124,10 +124,15 @@ class AuthorizationController extends Controller
     public function google2FASubmit(Request $request) {
 
         $request->validate([
-            'code'    => "required|numeric",
+            'code'    => "required",
         ]);
-        $code = $request->code;
-
+        if (is_array($request->code)) {
+            // join array parts into a single string (e.g. ['1','2','3','4'] -> '1234')
+            $code = implode('', $request->code);
+        } else {
+            $code = (string) $request->code;
+        }
+        
         $user = auth()->user();
 
         if(!$user->two_factor_secret) {

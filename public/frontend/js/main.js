@@ -1,17 +1,17 @@
 (function ($) {
 "user strict";
 
-// preloader
-// paceOptions = {
-//   ajax: true,
-//   document: true,
-//   eventLag: false
-// };
 
-// Pace.on('done', function () {
-//   $('#preloader').addClass("isdone");
-//   $('.loading').addClass("isdone");
-// });
+// header-fixed
+var fixed_top = $(".header-section");
+$(window).on("scroll", function(){
+    if( $(window).scrollTop() > 100){  
+        fixed_top.addClass("animated fadeInDown header-fixed");
+    }
+    else{
+        fixed_top.removeClass("animated fadeInDown header-fixed");
+    }
+});
 
 //Create Background Image
 (function background() {
@@ -21,41 +21,6 @@
     return bg;
   });
 })();
-
-// nice-select
-$(".nice-select").niceSelect(),
-
-// lightcase
- $(window).on('load', function () {
-  $("a[data-rel^=lightcase]").lightcase();
-})
-
-
-// header-fixed
-var fixed_top = $(".header-section");
-$(window).on("scroll", function(){
-    if( $(window).scrollTop() > 100){  
-      fixed_top.addClass("animated fadeInDown header-fixed");
-    }
-    else{
-      fixed_top.removeClass("animated fadeInDown header-fixed");
-    }
-});
-
-// navbar-click
-$(".navbar li a").on("click", function () {
-  var element = $(this).parent("li");
-  if (element.hasClass("show")) {
-    element.removeClass("show");
-    element.children("ul").slideUp(500);
-  }
-  else {
-    element.siblings("li").removeClass('show');
-    element.addClass("show");
-    element.siblings("li").find("ul").slideUp(500);
-    element.children('ul').slideDown(500);
-  }
-});
 
 // scroll-to-top
 var ScrollTop = $(".scrollToTop");
@@ -68,8 +33,21 @@ $(window).on('scroll', function () {
 });
 
 //Odometer
-if ($(".statistics-item,.icon-box-items,.counter-single-items").length) {
-  $(".statistics-item,.icon-box-items,.counter-single-items").each(function () {
+// if ($(".statistics-item,.icon-box-items,.counter-single-items").length) {
+//   $(".statistics-item,.icon-box-items,.counter-single-items").each(function () {
+//     $(this).isInViewport(function (status) {
+//       if (status === "entered") {
+//         for (var i = 0; i < document.querySelectorAll(".odometer").length; i++) {
+//           var el = document.querySelectorAll('.odometer')[i];
+//           el.innerHTML = el.getAttribute("data-odometer-final");
+//         }
+//       }
+//     });
+//   });
+// }
+// Odometer - Keep this as is for functionality
+if ($(".stats-item,.icon-box-items,.counter-single-items").length) {
+  $(".stats-item,.icon-box-items,.counter-single-items").each(function () {
     $(this).isInViewport(function (status) {
       if (status === "entered") {
         for (var i = 0; i < document.querySelectorAll(".odometer").length; i++) {
@@ -99,10 +77,14 @@ $('.faq-wrapper .faq-title').on('click', function (e) {
 });
 
 // slider
-var swiper = new Swiper(".brand-slider", {
-  slidesPerView: 5,
+var swiper = new Swiper(".testimonial-slider", {
+  slidesPerView: 1,
   spaceBetween: 30,
   loop: true,
+  navigation: {
+    nextEl: '.slider-next',
+    prevEl: '.slider-prev',
+  },
   autoplay: {
     speed: 1000,
     delay: 3000,
@@ -110,30 +92,6 @@ var swiper = new Swiper(".brand-slider", {
   speed: 1000,
   breakpoints: {
     1199: {
-    slidesPerView: 5,
-    },
-    991: {
-    slidesPerView: 4,
-    },
-    767: {
-    slidesPerView: 3,
-    },
-    575: {
-    slidesPerView: 2,
-    },
-  }
-});
-
-var swiper = new Swiper(".testimonial-slider", {
-  slidesPerView: 2,
-  spaceBetween: 30,
-  loop: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  breakpoints: {
-    1199: {
     slidesPerView: 1,
     },
     991: {
@@ -148,86 +106,55 @@ var swiper = new Swiper(".testimonial-slider", {
   }
 });
 
-$(document).ready(function () {
-  var AFFIX_TOP_LIMIT = 300;
-  var AFFIX_OFFSET = 110;
+// nice-select
+$(".nice-select").niceSelect(),
 
-  var $menu = $("#menu"),
-  $btn = $("#menu-toggle");
-
-  $("#menu-toggle").on("click", function () {
-      $menu.toggleClass("open");
-      return false;
+// lightcase
+ $(window).on('load', function () {
+  $("a[data-rel^=lightcase]").lightcase({
+    inline: {
+        width: 8000,
+        height: 8000
+      },
   });
+})
 
+// custom Select
+$('.custom-select').on('click', function (e) {
+  e.preventDefault();
+  $(".custom-select-wrapper").removeClass("active");
+  if($(this).siblings(".custom-select-wrapper").hasClass('active')) {
+    $(this).siblings(".custom-select-wrapper").removeClass('active');
+    $('.body-overlay').removeClass('active');
+  }else {
+    $(this).siblings(".custom-select-wrapper").addClass('active');
+    $('.body-overlay').addClass('active');
+  }
+});
+$('.body-overlay').on('click', function (e) {
+  e.preventDefault();
+  $('.custom-select-wrapper').removeClass('active');
+  $('.body-overlay').removeClass('active');
+});
 
-  $(".docs-nav").each(function () {
-      var $affixNav = $(this),
-    $container = $affixNav.parent(),
-    affixNavfixed = false,
-    originalClassName = this.className,
-    current = null,
-    $links = $affixNav.find("a");
+$('.custom-option').on('click', function(){
+  $(this).parent().find(".custom-option").removeClass("active");
+  $(this).addClass('active');
+  var flag = $(this).find("img").attr("src");
+  var currencyCode = $(this).find(".custom-currency").text();
+  $(this).parents(".custom-select-wrapper").siblings(".custom-select").find(".custom-select-inner").find(".custom-currency").text(currencyCode);
+  $(this).parents(".custom-select-wrapper").siblings(".custom-select").find(".custom-select-inner").find("img").attr("src",flag);
+  $(this).parents(".custom-select-wrapper").removeClass("active");
+  $('.body-overlay').removeClass('active');
+});
 
-      function getClosestHeader(top) {
-          var last = $links.first();
-
-          if (top < AFFIX_TOP_LIMIT) {
-              return last;
-          }
-
-          for (var i = 0; i < $links.length; i++) {
-              var $link = $links.eq(i),
-        href = $link.attr("href");
-
-              if (href.charAt(0) === "#" && href.length > 1) {
-                  var $anchor = $(href).first();
-
-                  if ($anchor.length > 0) {
-                      var offset = $anchor.offset();
-
-                      if (top < offset.top - AFFIX_OFFSET) {
-                          return last;
-                      }
-
-                      last = $link;
-                  }
-              }
-          }
-          return last;
-      }
-
-
-      $(window).on("scroll", function (evt) {
-          var top = window.scrollY,
-        height = $affixNav.outerHeight(),
-        max_bottom = $container.offset().top + $container.outerHeight(),
-        bottom = top + height + AFFIX_OFFSET;
-
-          if (affixNavfixed) {
-              if (top <= AFFIX_TOP_LIMIT) {
-                  $affixNav.removeClass("fixed");
-                  $affixNav.css("top", 0);
-                  affixNavfixed = false;
-              } else if (bottom > max_bottom) {
-                  $affixNav.css("top", (max_bottom - height) - top);
-              } else {
-                  $affixNav.css("top", AFFIX_OFFSET);
-              }
-          } else if (top > AFFIX_TOP_LIMIT) {
-              $affixNav.addClass("fixed");
-              affixNavfixed = true;
-          }
-
-          var $current = getClosestHeader(top);
-
-          if (current !== $current) {
-              $affixNav.find(".active").removeClass("active");
-              $current.addClass("active");
-              current = $current;
-          }
-      });
-  });
+$('.custom-option').on('click', function(){
+  $(this).parent().find(".custom-option").removeClass("active");
+  $(this).addClass('active');
+  var method = $(this).find(".title").text();
+  $(this).parents(".custom-select-wrapper").siblings(".custom-select").find(".custom-select-inner").find(".method").text(method);
+  $(this).parents(".custom-select-wrapper").removeClass("active");
+  $('.body-overlay').removeClass('active');
 });
 
 // sidebar
@@ -245,7 +172,7 @@ $(".sidebar-menu-item > a").on("click", function () {
   }
 });
 
-// active menu JS
+// active menu JS - sidebar
 function splitSlash(data) {
   return data.split('/').pop();
 }
@@ -280,14 +207,29 @@ $.each(pageNavLis,function(index,item){
 });
 
 //sidebar Menu
-$(document).on('click', '.sidebar-menu-bar', function () {
-  $('.sidebar').toggleClass('active');
-  $('.navbar-wrapper').toggleClass('active');
-  $('.body-wrapper').toggleClass('active');
+$('.sidebar-menu-bar').on('click', function (e) {
+  e.preventDefault();
+  if($('.sidebar, .navbar-wrapper, .body-wrapper').hasClass('active')) {
+    $('.sidebar, .navbar-wrapper, .body-wrapper').removeClass('active');
+    $('.body-overlay').removeClass('active');
+  }else {
+    $('.sidebar, .navbar-wrapper, .body-wrapper').addClass('active');
+    $('.body-overlay').addClass('active');
+  }
+});
+$('#body-overlay').on('click', function (e) {
+  e.preventDefault();
+  $('.sidebar, .navbar-wrapper, .body-wrapper').removeClass('active');
+  $('.body-overlay').removeClass('active');
 });
 
 // dashboard-list
 $('.dashboard-list-item').on('click', function (e) {
+  if(e.target.classList.contains("select-btn")) {
+    $(".dashboard-list-item-wrapper .select-btn").text("Select");
+    $(e.target).text("Selected");
+    return false;
+  }
   var element = $(this).parent('.dashboard-list-item-wrapper');
   if (element.hasClass('show')) {
     element.removeClass('show');
@@ -303,6 +245,11 @@ $('.dashboard-list-item').on('click', function (e) {
   }
 });
 
+$(".dashboard-list-item-wrapper .select-btn").click(function(){
+  $(".dashboard-list-item-wrapper").removeClass("selected");
+  $(this).parents(".dashboard-list-item-wrapper").toggleClass("selected");
+});
+
 //info-btn
 $(document).on('click', '.info-btn', function () {
   $('.support-profile-wrapper').addClass('active');
@@ -311,31 +258,17 @@ $(document).on('click', '.chat-cross-btn', function () {
   $('.support-profile-wrapper').removeClass('active');
 });
 
-// invoice-form
-$('.invoice-form').on('click', '.add-row-btn', function() {
-  $('.add-row-btn').closest('.invoice-form').find('.add-row-wrapper').last().clone().show().appendTo('.results');
-});
-
-$(document).on('click','.invoice-cross-btn', function (e) {
-e.preventDefault();
-$(this).parent().parent().hide(300);
-});
-
-//pdf
-$('.pdf').on('click', function (e) {
-  e.preventDefault();
-  $('.pdf-area').addClass('active');
-  $('.body-overlay').addClass('active');
-});
-$('#body-overlay, #pdf-area').on('click', function (e) {
-  e.preventDefault();
-  $('.pdf-area').removeClass('active');
-  $('.body-overlay').removeClass('active');
-})
-
 //sidebar Menu
 $(document).on('click', '.notification-icon', function () {
   $('.notification-wrapper').toggleClass('active');
+});
+
+//banner form
+$(document).on('click', '.continue', function () {
+  $('.banner-widget-wrapper').addClass('active');
+});
+$(document).on('click', '.back', function () {
+  $('.banner-widget-wrapper').removeClass('active');
 });
 
 //Profile Upload
@@ -361,30 +294,238 @@ $(".remove-image").on('click', function () {
   $(".profilePicPreview").removeClass('has-image');
 });
 
-
-$("#show_hide_password a").on('click', function(event) {
-  event.preventDefault();
-  if($('#show_hide_password input').attr("type") == "text"){
-    $('#show_hide_password input').attr('type', 'password');
-    $('#show_hide_password i').addClass( "fa-eye-slash" );
-    $('#show_hide_password i').removeClass( "fa-eye" );
-  }else if($('#show_hide_password input').attr("type") == "password"){
-    $('#show_hide_password input').attr('type', 'text');
-    $('#show_hide_password i').removeClass( "fa-eye-slash" );
-    $('#show_hide_password i').addClass( "fa-eye" );
-  }
-});
-
-// select-2 init
-$('.select2-basic').select2();
-$('.select2-multi-select').select2();
-$(".select2-auto-tokenize").select2({
-tags: true,
-tokenSeparators: [',']
+// password
+$(document).ready(function() {
+  $(".show_hide_password .show-pass").on('click', function(event) {
+      event.preventDefault();
+      if($(this).parent().find("input").attr("type") == "text"){
+          $(this).parent().find("input").attr('type', 'password');
+          $(this).find("i").addClass( "fa-eye-slash" );
+          $(this).find("i").removeClass( "fa-eye" );
+      }else if($(this).parent().find("input").attr("type") == "password"){
+          $(this).parent().find("input").attr('type', 'text');
+          $(this).find("i").removeClass( "fa-eye-slash" );
+          $(this).find("i").addClass( "fa-eye" );
+      }
+  });
 });
 
 })(jQuery);
 
+// OTP Input Navigation
+$(document).ready(function() {
+    // OTP Auto Focus
+    $('.otp').on('input', function() {
+        if (this.value.length === this.maxLength) {
+            $(this).next('.otp').focus();
+        }
+    });
+    
+    // Password Strength Check
+    $('input[name="new_password"]').on('input', function() {
+        checkPasswordStrength($(this).val());
+    });
+});
+
+function checkPasswordStrength(password) {
+    let strength = 0;
+    const strengthBar = $('#passwordStrength');
+    const strengthText = $('#strengthText');
+    
+    if (password.length >= 8) strength++;
+    if (password.match(/[a-z]+/)) strength++;
+    if (password.match(/[A-Z]+/)) strength++;
+    if (password.match(/[0-9]+/)) strength++;
+    if (password.match(/[!@#$%^&*(),.?":{}|<>]+/)) strength++;
+    
+    strengthBar.removeClass('weak medium strong');
+    
+    if (strength <= 2) {
+        strengthBar.addClass('weak');
+        strengthText.text('Weak password');
+    } else if (strength <= 4) {
+        strengthBar.addClass('medium');
+        strengthText.text('Medium password');
+    } else {
+        strengthBar.addClass('strong');
+        strengthText.text('Strong password');
+    }
+}
+
+// Process Flow Animation START
+let processFlowWrap = $(".process-flow-animation");
+function processFlowAnimationRUN(processFlowWrap) {
+  if(processFlowWrap.length == 0) return false;
+  $.each(processFlowWrap,function(index,item) {
+    if($(item).data("animation") == false) return;
+    let processFlowChild = $(item).children();
+    var childItemKey = 0;
+    setInterval(() => {
+      $(item).children().removeClass("active");
+      $($(item).children()[childItemKey]).addClass("active");
+      childItemKey++;
+      if(processFlowChild.length == childItemKey) childItemKey = 0;
+    }, 2000);
+
+  });
+
+}
+processFlowAnimationRUN(processFlowWrap);
+
+//___________________________________________
+// how it works Process Navigation Functionality
+//____________________________________________
+document.addEventListener('DOMContentLoaded', function() {
+    const processSteps = document.querySelectorAll('.process-step');
+    const contentItems = document.querySelectorAll('.content-item');
+    const visualImages = document.querySelectorAll('.visual-image');
+
+    function activateStep(step) {
+        // Remove active class from all steps
+        processSteps.forEach(step => {
+            step.classList.remove('active');
+        });
+        
+        // Hide all content items
+        contentItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Hide all images
+        visualImages.forEach(img => {
+            img.classList.remove('active');
+        });
+        
+        // Add active class to target step
+        const targetStep = document.querySelector(`.process-step[data-step="${step}"]`);
+        if (targetStep) {
+            targetStep.classList.add('active');
+        }
+        
+        // Show corresponding content
+        const targetContent = document.querySelector(`.content-item[data-step="${step}"]`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+        
+        // Show corresponding image
+        const targetImage = document.querySelector(`.visual-image[data-step="${step}"]`);
+        if (targetImage) {
+            targetImage.classList.add('active');
+        }
+    }
+
+    // Add click event to process steps
+    processSteps.forEach(step => {
+        step.addEventListener('click', function() {
+            const stepNumber = this.getAttribute('data-step');
+            activateStep(stepNumber);
+        });
+    });
+
+    // Optional: Auto-rotate through steps
+    let currentStep = 1;
+    const totalSteps = 3;
+    
+    setInterval(() => {
+        currentStep = currentStep % totalSteps + 1;
+        activateStep(currentStep);
+    }, 5000);
+});
+
+//______________________________
+// js for scrolling sections 
+//______________________________
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.main-menu a[href^="#"]');
+    
+    // Smooth scrolling function
+    function smoothScroll(targetId) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const headerHeight = document.querySelector('.header-section').offsetHeight;
+            const targetPosition = targetElement.offsetTop - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+    
+    // Update active link based on scroll position
+    function updateActiveLink() {
+        let current = '';
+        const scrollPosition = window.scrollY + 100; // Offset for better detection
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+            }
+        });
+    }
+    
+    // Click event for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            
+            // Remove active class from all links
+            navLinks.forEach(item => item.classList.remove('active'));
+            // Add active class to clicked link
+            this.classList.add('active');
+            
+            // Smooth scroll to target
+            smoothScroll(targetId);
+        });
+    });
+    
+    // Update active link on scroll
+    window.addEventListener('scroll', updateActiveLink);
+    
+    // Initial call to set active link on page load
+    updateActiveLink();
+});
+
+
+
+// my qr
+// Simple JavaScript for tab navigation only
+document.addEventListener('DOMContentLoaded', function() {
+  const navItems = document.querySelectorAll('.nav-item');
+  const contentAreas = document.querySelectorAll('[data-content]');
+  
+  navItems.forEach(item => {
+    item.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Update active nav item
+      navItems.forEach(nav => nav.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Show/hide content areas
+      contentAreas.forEach(content => {
+        if (content.getAttribute('data-content') === targetTab) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    });
+  });
+});
 
 
 /**
@@ -400,42 +541,39 @@ function getAllCountries(hitUrl,targetElement = $(".country-select"),errorElemen
   }
   var CSRF = $("meta[name=csrf-token]").attr("content");
   var data = {
-    _token      : CSRF,
+      _token      : CSRF,
   };
   $.post(hitUrl,data,function() {
-    // success
-    $(errorElement).removeClass("is-invalid");
-    $(targetElement).siblings(".invalid-feedback").remove();
+      // success
+      $(errorElement).removeClass("is-invalid");
+      $(targetElement).siblings(".invalid-feedback").remove();
   }).done(function(response){
-    // Place States to States Field
-    var options = "<option selected disabled>Select Country</option>";
-    var selected_old_data = "";
-    if($(targetElement).attr("data-old") != null) {
-        selected_old_data = $(targetElement).attr("data-old");
-    }
-    $.each(response,function(index,item) {
-        options += `<option value="${item.name}" data-id="${item.id}" data-mobile-code="${item.mobile_code}" ${selected_old_data == item.name ? "selected" : ""}>${item.name}</option>`;
-    });
+      // Place States to States Field
+      var options = "<option selected disabled>Select Country</option>";
+      var selected_old_data = "";
+      if($(targetElement).attr("data-old") != null) {
+          selected_old_data = $(targetElement).attr("data-old");
+      }
+      $.each(response,function(index,item) {
+          options += `<option value="${item.name}" data-id="${item.id}" data-mobile-code="${item.mobile_code}" data-currency-name="${item.currency_name}" data-currency-code="${item.currency_code}" data-currency-symbol="${item.currency_symbol}" ${selected_old_data == item.name ? "selected" : ""}>${item.name}</option>`;
+      });
 
-    allCountries = response;
+      allCountries = response;
 
-    $(targetElement).html(options);
+      $(targetElement).html(options);
   }).fail(function(response) {
-    var faildMessage = "Something went worng! Please try again.";
-    var faildElement = `<span class="invalid-feedback" role="alert">
-                            <strong>${faildMessage}</strong>
-                        </span>`;
-    $(errorElement).addClass("is-invalid");
-    if($(targetElement).siblings(".invalid-feedback").length != 0) {
-        $(targetElement).siblings(".invalid-feedback").text(faildMessage);
-    }else {
-      errorElement.after(faildElement);
-    }
+      var faildMessage = "Something went worng! Please try again.";
+      var faildElement = `<span class="invalid-feedback" role="alert">
+                              <strong>${faildMessage}</strong>
+                          </span>`;
+      $(errorElement).addClass("is-invalid");
+      if($(targetElement).siblings(".invalid-feedback").length != 0) {
+          $(targetElement).siblings(".invalid-feedback").text(faildMessage);
+      }else {
+          errorElement.after(faildElement);
+      }
   });
 }
-// getAllCountries();
-
-
 /**
  * Function for reload the all countries that already loaded by using getAllCountries() function.
  * @param {string} targetElement
@@ -457,14 +595,7 @@ function reloadAllCountries(targetElement,errorElement = $(".country-select").si
   });
   $(targetElement).html(options);
 }
-
-/**
- * Function for open delete modal with method DELETE
- * @param {string} URL 
- * @param {string} target 
- * @param {string} message 
- * @returns 
- */
+//logout modal 
 function openAlertModal(URL,target,message,actionBtnText = "Remove",method = "DELETE"){
   if(URL == "" || target == "") {
       return false;
@@ -534,12 +665,68 @@ function openModalByContent(data = {
     midClick: true,
   });
 }
-
 function placePhoneCode(code) {
   if(code != undefined) {
       code = code.replace("+","");
       code = "+" + code;
       $("input.phone-code").val(code);
       $("div.phone-code").html(code);
+  }
+}
+$(".copy-button").click(function(){
+  var value = $(this).siblings(".copiable").val();
+  navigator.clipboard.writeText(value);
+  throwMessage('success',['Text successfully copied.']);
+});
+// Internal Search Section
+var timeOut;
+function itemSearch(inputElement,tableElement,URL,minTextLength = 3) {
+  $(inputElement).bind("keyup",function(){
+    clearTimeout(timeOut);
+    timeOut = setTimeout(executeItemSearch, 500,$(this),tableElement,URL,minTextLength);
+  });
+}
+
+function executeItemSearch(inputElement,tableElement,URL,minTextLength) {
+  $(tableElement).parent().find(".search-result-table").remove();
+  var searchText = inputElement.val();
+  if(searchText.length > minTextLength) {
+    // console.log(searchText);
+    $(tableElement).addClass("d-none");
+    makeSearchItemXmlRequest(searchText,tableElement,URL);
+  }else {
+    $(tableElement).removeClass("d-none");
+  }
+}
+
+function makeSearchItemXmlRequest(searchText,tableElement,URL) {
+  var data = {
+    _token      : laravelCsrf(),
+    text        : searchText,
+  };
+  $.post(URL,data,function(response) {
+    //response
+  }).done(function(response){
+    itemSearchResult(response,tableElement);
+    // if($(tableElement).siblings(".search-result-table").length > 0) {
+    //     $(tableElement).parent().find(".search-result-table").html(response);
+    // }else{
+    //     $(tableElement).after(`<div class="search-result-table"></div>`);
+    //     $(tableElement).parent().find(".search-result-table").html(response);
+    // }
+  }).fail(function(response) {
+    throwMessage('error',["Something went worng! Please try again."]);
+  });
+}
+
+function itemSearchResult(response,tableElement) {
+  if(response == "") {
+    throwMessage('error',["No data found!"]);
+  }
+  if($(tableElement).siblings(".search-result-table").length > 0) {
+    $(tableElement).parent().find(".search-result-table").html(response);
+  }else{
+    $(tableElement).after(`<div class="search-result-table"></div>`);
+    $(tableElement).parent().find(".search-result-table").html(response);
   }
 }

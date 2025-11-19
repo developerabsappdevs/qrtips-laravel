@@ -30,7 +30,7 @@ class UserSupportChat extends Model
         if($this->sender_type == "ADMIN") {
             $admin = Admin::find($this->sender);
             if($admin) {
-                return get_image($admin->image,"admin-profile");
+                return $admin->adminImage;
             }else {
                 return files_asset_path("default");
             }

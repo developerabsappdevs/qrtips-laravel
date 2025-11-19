@@ -46,6 +46,7 @@ class Admin extends Authenticatable
         'fullname',
         'stringStatus',
         'editData',
+        'adminImage',
     ];
 
     protected $with = [
@@ -126,6 +127,17 @@ class Admin extends Authenticatable
         return $query->where(function($q) use ($data) {
             $q->where("username","like","%".$data."%");
         })->orWhere("email","like","%".$data."%")->orWhere("phone","like","%".$data."%");
+    }
+    public function getAdminImageAttribute() {
+        $image = $this->image;
+
+        if($image == null) {
+            return files_asset_path('profile-default');
+        }else if(filter_var($image, FILTER_VALIDATE_URL)) {
+            return $image;
+        }else {
+            return files_asset_path("admin-profile") . "/" . $image;
+        }
     }
 
 }

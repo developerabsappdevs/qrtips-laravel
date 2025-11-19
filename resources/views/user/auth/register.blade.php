@@ -1,11 +1,81 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
 @push('css')
     
 @endpush
 
 @section('content')
-    <section class="account-section bg_img" data-background="{{ asset("public/frontend/images/element/account.png") }}">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Start Account
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div class="account-section ptb-80">
+    <div class="account-area">
+        <div class="account-form-area">
+            <h5 class="title">Sign Up Information</h5>
+            <p>Please input your details and sign up to your account to get access to your dashboard.</p>
+            <form action="{{ setRoute('user.register.submit') }}" class="account-form" method="POST">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 form-group">
+                        <label>{{__('First Name')}}<span>*</span></label>
+                        @include('admin.components.form.input',[
+                            'name'          => "firstname",
+                            'placeholder'   => "First Name",
+                            'value'         => old("firstname"),
+                        ])
+                    </div>
+                    <div class="col-lg-6 col-md-12 form-group">
+                        <label>{{__('Last Name')}}<span>*</span></label>
+                        @include('admin.components.form.input',[
+                            'name'          => "lastname",
+                            'placeholder'   => "Last Name",
+                            'value'         => old("lastname"),
+                        ])
+                    </div>
+                    <div class="col-lg-12 form-group">
+                        <label>{{__('Email')}}<span>*</span></label>
+                        @include('admin.components.form.input',[
+                            'type'          => "email",
+                            'name'          => "email",
+                            'placeholder'   => "Email",
+                            'value'         => old("email"),
+                        ])
+                    </div>
+                    <div class="col-lg-12 form-group show_hide_password">
+                        <label>{{__('Password')}}<span>*</span></label>
+                        <input type="password" class="form-control form--control" name="password" placeholder="Password">
+                        <span class="show-pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></span>
+                         @error("password")
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-12 form-group">
+                        <div class="custom-check-group">
+                            <input type="checkbox" id="level-1" name="agree">
+                            <label for="level-1">{{__('I have agreed with')}} <a href="#0">{{__('Terms Of Use & Privacy Policy')}}</a></label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 form-group text-center">
+                        <button type="submit" class="btn--base w-90">{{__('Sign Up')}}</button>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <div class="account-item">
+                            <label>{{__('Already Have An Account?')}} <a href="{{ setRoute('user.login') }}">{{__('Login Now')}}</a></label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    End Account
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+    {{-- <section class="account-section bg_img" data-background="{{ asset("public/frontend/images/element/account.png") }}">
         <div class="right float-end">
             <div class="account-header text-center">
                 <a class="site-logo" href="{{ route('frontend.index') }}"><img src="{{ get_logo($basic_settings) }}" alt="logo"></a>
@@ -92,7 +162,7 @@
                 <p>{{ __("Copyright") }} © {{ date("Y",time()) }} {{ __("All Rights Reserved.") }}</a></p>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
 
 @push('script')

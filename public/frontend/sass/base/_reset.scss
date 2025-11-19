@@ -6,7 +6,7 @@ html {
     scroll-behavior: smooth;
 }
 body {
-    background-color: $body--bg;
+    background: $white;
     font-family: $font_body;
     font-size: $base__font-size;
     font-weight: 400;
@@ -42,11 +42,11 @@ img {
 .exchange-area{
     code{
         font-size: 20px;
-        color: #1e9ff2;
+        color: $section--bg;
     }
 }
 code{
-    color: #ff9f43;
+    color: $section--bg;
     font-weight: 600;
     span{
         display: block;
@@ -76,18 +76,18 @@ a,a:focus, a:hover {
     color: inherit;
 }
 blockquote{
-    background-color: $bg--gray;
+    background-color: #f5f5f5;
     padding: 40px;
-    border-radius: 10px;
     font-weight: 500;
     font-style: italic;
     position: relative;
+    text-align: center;
     .quote-icon{
-        position: absolute;
-        top: 0;
-        left: 5%;
-        font-size: 120px;
-        opacity: .1;
+        svg{
+            path{
+                fill: $section--bg;
+            }
+        }
     }
 }
 /*-------------------------------------------------
@@ -346,10 +346,17 @@ blockquote{
     background-color: $base--color;
 }
 .bg--success {
-    background-color: #28c76f;
+    background-color: #28c76f !important;
 }
 .bg--danger {
-    background-color: #d63384 !important;
+    background-color: #dc3545 !important;
+    &::before{
+        background-color: #dc3545 !important;
+    }
+    &:hover,
+    &:focus{
+        color: $white !important;
+    }
 }
 .bg--warning {
     background-color: #ff9f43 !important;
@@ -373,10 +380,10 @@ blockquote{
     color: #28c76f;
 }
 .text-danger{
-    color: #d63384 !important;
+    color: #dc3545 !important;
 }
 .text--danger {
-    color: #d63384;
+    color: #dc3545;
 }
 .text--warning {
     color: #ff9f43;
@@ -471,12 +478,12 @@ html::-webkit-scrollbar-corner {
     right: 30px;
     width: 35px;
     height: 35px;
-    padding: 7px;
+    padding: 8px;
     line-height: 1;
     font-weight: 600;
     background-color: $base--color;
-    border-radius: 7px;
-    color: $white;
+    border-radius: 5px;
+    color: $white !important;
     font-size: 11px;
     text-align: center;
     z-index: 9;
@@ -498,50 +505,56 @@ html::-webkit-scrollbar-corner {
     [ ## Table ]
 */
 .table-wrapper{
-    background-color: $body--bg;
-    padding: 30px;
-    border-radius: 15px;
+    background-color: $white;
+    box-shadow: 0px 6px 15px rgba(64, 79, 104, 0.05);
+    border-radius: 5px;
+    overflow: hidden;
 }
 .custom-table{
     width: 100%;
     white-space: nowrap;
     thead{
         tr{
-            border-bottom: 1px solid $border--base;
+            background-color: $section--bg;
+            box-shadow: 0px 0px 8px rgba(40, 36, 49, 0.5);
             th{
                 border: none;
                 font-weight: 600;
                 color: $white;
-                font-size: 14px;
-                padding: 12px 15px;
-                &:last-child{
-                    text-align: right;
-                }
+                font-family: $font_heading;
+                text-align: center;
+                font-size: 16px;
+                padding: 20px 30px;
             }
         }
     }
     tbody{
         tr{
             border-bottom: 1px solid $border--base;
-            &:nth-of-type(2n){
-                background-color: $section--bg;
+            &:nth-child(even){
+                background-color: #f5f5f5;
             }
             td{
-                border: none;
+                border-right: 1px solid $border--base;
+                border-top: 1px solid $border--base;
                 font-weight: 500;
                 color: $color--text;
+                vertical-align: middle !important;
+                text-align: center;
                 font-size: 14px;
-                padding: 12px 15px;
-                &:last-child{
-                    text-align: right;
+                padding: 10px 30px;
+                &:first-child{
+                    border-left: 1px solid $border--base;
                 }
-                button,.btn--base{
-                    padding: 8px 25px;
-                    font-size: 14px;
-                    border-radius: 8px;
+                span{
+                    font-weight: 700;
                 }
                 .btn{
-                    padding: 6px 10px;
+                    font-size: 24px;
+                    svg{
+                        width: 40px;
+                        fill: $section--bg;
+                    }
                 }
             }
         }
@@ -556,48 +569,65 @@ html::-webkit-scrollbar-corner {
 }
 .swiper-pagination{
     position: relative;
-    display: flex;
-    justify-content: center;
-    margin-top: 60px;
+    padding: 18px 45px;
+    background-color: $bg--gray;
+    display: inline-flex;
+    border-radius: 50px;
+    margin-top: 50px;
+    width: auto !important;
+    z-index: 2;
     .swiper-pagination-bullet{
-        height: 10px;
+        height: 4px;
         width: 10px;
-        border-radius: 50%;
-        background-color: rgba($base--color, 0.2);
-        opacity: 1;
+        border-radius: 5px;
+        background-color: $base--color;
+        opacity: 0.25;
     }
     .swiper-pagination-bullet-active{
-        background-color: $base--color;
-        width: 25px;
-        border-radius: 10px;
+        opacity: 1;
+        width: 46px;
     }
 }
 
 .slider-next, .slider-prev{
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
-    font-size: 12px;
-    background-color: $white;
-    border: 1px solid $border--base;
+    width: 55px;
+    height: 55px;
+    font-size: 30px;
     border-radius: 50%;
-    color: $color--text;
-    display: inline-block;
+    color: $color--heading;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    position: relative;
+    position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translateX(-100%);
+    transform: translateY(-50%);
+    left: -50px;
     cursor: pointer;
-    margin-top: 60px;
+    z-index: 2;
     transition: all 0.3s;
-    &:hover{
+    &::before{
+        position: absolute;
+        content: '';
+        top: 0;
+        left: -20px;
+        width: 100%;
+        height: 100%;
         background-color: $base--color;
-        color: $white;
+        border-radius: 50%;
+        z-index: -1;
+    }
+    @media only screen and (max-width: 575px) {
+        display: none;
     }
 }
 .slider-next{
-    margin-left: 10px;
+    left: auto;
+    right: -50px;
+    &::before{
+        left: auto;
+        right: -20px;
+    }
 }
 
 /*-------------------------------------------------
@@ -606,40 +636,42 @@ html::-webkit-scrollbar-corner {
 .pagination {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  margin-top: 20px;
+  justify-content: center;
+  margin-top: 40px;
     .page-item{
         text-align: center;
         padding: 3px;
         a,span{
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
             background: transparent;
-            border: 1px solid $border--base;
+            border: none;
             color: $color--heading;
+            font-size: 16px;
             padding: 0;
             font-weight: 600;
-            line-height: 30px;
-            display: block;
             margin: 0;
         }
         &.disabled{
             span{
-                border-radius: 8px;
+                border-radius: 50%;
                 background: transparent;
-                border: 1px solid $border--base;
+                border: none;
                 color: $color--heading;
             }
         }
         .page-link{
-            border-radius: 8px;
+            border-radius: 50%;
             transition: all 0.3s;
         }
         &.active,
         &:hover{
             .page-link{
-                background-color: $base--color;
+                background-color: $section--bg;
                 border-color: transparent;
                 color: $white;
             }
@@ -654,57 +686,138 @@ html::-webkit-scrollbar-corner {
     margin: 0;
     border: 0;
     justify-content: center;
-    margin-bottom: 30px;
+    margin: -14px;
+    margin-bottom: 40px;
     .nav-link{
-        padding: 30px;
-        border: none;
+        width: 250px;
+        height: 150px;
+        display: block;
+        padding: 0.5rem 1rem;
         font-weight: 600;
-        font-size: 16px;
-        background-color: $white;
-        border-radius: 15px;
-        border: none;
+        font-family: $font_heading;
+        font-size: 18px;
+        background-color: $bg--gray;
+        border: 1px solid $border--base;
+        border-radius: 5px;
         text-align: center;
         transition: all 0.3s;
-        .icon{
-            width: 50px;
-            height: 50px;
-            font-size: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-radius: 30%;
-            color: $white;
+        margin: 14px;
+        span{
+            display: block;
+        }
+        .product-tab-thumb{
+            background-color: $white;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
             margin: 0 auto;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            img{
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 10px;
+            }
         }
         &.active{
-            box-shadow: 0px 0px 15px rgb(0 0 0 / 10%);
-            border: none;
+            background-color: rgba(16,187,187,0.2);
+            border: 1px solid rgba(16,187,187,0.6);
             color: $color--heading;
         }
-        &:nth-of-type(1n){
-            .icon{
-                background-color: #7367f0;
-                box-shadow: 0 2px 10px 0 rgb(115 103 240 / 30%);
-            }
+    }
+}
+.tab-content > .active {
+    animation: scroll-down 1s;
+    transition: opacity 0s linear;
+}
+.how-we-do-tab{
+    .nav-tabs{
+        padding-bottom: 30px;
+        border-bottom: 1px solid #86d3d3;
+        margin: 0;
+        margin-bottom: 60px;
+        @media only screen and (max-width: 991px) {
+            margin-bottom: 30px;
         }
-        &:nth-of-type(2n){
-            .icon{
-                background-color: #28c76f;
-                box-shadow: 0 2px 10px 0 rgb(40 199 111 / 30%);
-            }
+        @media only screen and (max-width: 767px) {
+            display: block;
+            text-align: center;
+            padding-bottom: 0;
         }
-        &:nth-of-type(3n){
-            .icon{
-                background-color: #107BE9;
-                box-shadow: 0 2px 10px 0 rgb(16 123 233 / 30%);
+        .nav-link{
+            position: relative;
+            width: auto;
+            height: auto;
+            display: block;
+            padding: 0;
+            font-weight: 600;
+            font-family: $font_heading;
+            font-size: 20px;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            text-align: center;
+            transition: all 0.3s;
+            margin: 0;
+            @media only screen and (max-width: 991px) {
+                font-size: 16px;
             }
-        }
-        &:not(:last-child){
-            margin-right: 30px;
-            @media only screen and (max-width: 1199px) {
-                margin-right: 5px;
+            @media only screen and (max-width: 767px) {
+                width: 100%;
+                padding-bottom: 10px;
+                margin-bottom: 10px;
+            }
+            &::before{
+                position: absolute;
+                content: "";
+                bottom: -33px;
+                left: 0;
+                width: 0;
+                height: 5px;
+                background-color: #86d3d3;
+                transition: all 0.3s;
+                @media only screen and (max-width: 767px) {
+                    bottom: 0;
+                }
+            }
+            &::after{
+                position: absolute;
+                content: "";
+                top: 0;
+                right: -40px;
+                width: 1px;
+                height: 100%;
+                background-color: #86d3d3;
+                transition: all 0.3s;
+                @media only screen and (max-width: 991px) {
+                    right: -20px;
+                }
+                @media only screen and (max-width: 767px) {
+                    display: none;
+                }
+            }
+            &.active{
+                background-color: transparent;
+                border: none;
+                color: $base--color;
+                &::before{
+                    width: 100%;
+                }
+            }
+            &:last-child{
+                &::after{
+                    display: none;
+                }
+            }
+            &:not(:last-child){
+                margin-right: 80px;
+                @media only screen and (max-width: 991px) {
+                    margin-right: 40px;
+                }
+                @media only screen and (max-width: 767px) {
+                    margin-right: 0;
+                }
             }
         }
     }
@@ -720,9 +833,11 @@ html::-webkit-scrollbar-corner {
         justify-content: space-between;
     }
     .card-body{
-        background: $body--bg;
+        border: 1px solid $border--base;
+        background-color: $white;
+        box-shadow: 0px 6px 15px rgba(64, 79, 104, 0.05);
+        border-radius: 5px;
         padding: 30px;
-        border-radius: 20px;
         @media only screen and (max-width: 575px) {
             padding: 20px;
         }
@@ -730,16 +845,68 @@ html::-webkit-scrollbar-corner {
     button,.btn--base{
         padding: 12px 30px;
     }
+    .table-wrapper{
+        background-color: $body--bg;
+    }
+}
+
+/*-------------------------------------------------
+    [ ## switch ]
+*/
+.toggle-container{
+    .switch-toggles{
+        position: relative;
+        width: 100%;
+        height: 45px;
+        background-color: $white;
+        &::after{
+            position: absolute;
+            content: "";
+            width: 50%;
+            height: 45px;
+            background: $base--color;
+            right: -1px;
+            top: 0;
+            transition: all 0.7s cubic-bezier(0.545, 0, 0.05, 1);
+        }
+        .switch{
+            position: relative;
+            width: 50%;
+            line-height: 45px;
+            float: left;
+            text-align: center;
+            z-index: 2;
+            cursor: pointer;
+            transition: color 0.7s cubic-bezier(0.545, 0, 0.05, 1);
+            font-weight: 600;
+            color: $color--heading;
+            margin-bottom: 0;
+            &:nth-child(odd){
+                color: $white;
+            }
+        }
+        &.active{
+            &::after{
+                background: $base--color;
+                right: 50%;
+            }
+            .switch{
+                color: $color--heading;
+                &:nth-child(even){
+                    color: $white;
+                }
+            }
+        }
+    }
 }
 
 /*-------------------------------------------------
     [ ## modal ]
 */
 .modal-content{
+    position: relative;
+    z-index: 9999999;
     background-color: $body--bg;
-    .close{
-        border-radius: 3px;
-    }
 }
 .modal-header{
     border-color: $border--base;
@@ -749,10 +916,14 @@ html::-webkit-scrollbar-corner {
     button{
         padding: 8px 25px;
         font-size: 14px;
-        border-radius: 8px;
         color: $white !important;
     }
 }
 .btn-close {
     background: #ffffff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+}
+
+// width 
+.w-90 {
+    width: 90%;
 }

@@ -3,7 +3,7 @@
 <!-- bootstrap js -->
 <script src="{{ asset('public/frontend/js/bootstrap.bundle.min.js') }}"></script>
 <!-- swipper js -->
-<script src="{{ asset('public/frontend/js/swiper.min.js') }}"></script>
+<script src="{{ asset('public/frontend/js/swiper-bundle.min.js') }}"></script>
 <!-- lightcase js-->
 <script src="{{ asset('public/frontend/js/lightcase.js') }}"></script>
 <!-- odometer js -->
@@ -22,5 +22,8 @@
 <script src="{{ asset('public/frontend/js/apexcharts.min.js') }}"></script>
 <!-- main -->
 <script src="{{ asset('public/frontend/js/main.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 @include('admin.partials.notify')

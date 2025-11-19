@@ -1562,7 +1562,7 @@ function generate_google_2fa_auth_qr() {
             'two_factor_secret' => $secret_key,
         ]);
     }
-    $qr_image = 'https://chart.googleapis.com/chart?cht=qr&chs=350x350&chl='.$generate_text;
+    $qr_image = 'https://qrcode.tec-it.com/API/QRCode?data='.$generate_text;
     return $qr_image;
 }
 

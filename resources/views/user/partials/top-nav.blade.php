@@ -1,4 +1,4 @@
-<nav class="navbar-wrapper">
+<nav class="navbar-wrapper dashboard-navbar-wrapper">
     <div class="dashboard-title-part">
         <div class="left">
             <div class="icon">
@@ -9,12 +9,6 @@
             @yield('breadcrumb')
         </div>
         <div class="right">
-            <form class="header-search-wrapper">
-                <div class="position-relative">
-                    <input class="form-control" type="text" placeholder="Ex: Transaction, Add Money" aria-label="Search">
-                    <span class="las la-search"></span>
-                </div>
-            </form>
             <div class="header-notification-wrapper">
                 <button class="notification-icon">
                     <i class="las la-bell"></i>

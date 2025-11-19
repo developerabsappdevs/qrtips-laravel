@@ -35,6 +35,10 @@ class BasicSettingsSeeder extends Seeder
                 "primary_key" => ""
             ],
             'kyc_verification'  => true,
+            'email_verification'    => true,
+            'email_notification'    => true,
+            'user_registration'     => true,
+            'agree_policy'          => true,
             'mail_config'       => [
                 "method" => "smtp",
                 "host" => "",
@@ -47,10 +51,10 @@ class BasicSettingsSeeder extends Seeder
             ],
             'email_verification'    => true,
             'admin_prefix'          => 'admin',
-            'site_logo_dark'        => "seeder/dark-logo.webp",
-            'site_logo'             => "seeder/white-logo.webp",
-            'site_fav_dark'         => "seeder/dark-fav.webp",
-            'site_fav'              => "seeder/white-fav.webp",
+            'site_logo_dark'        => "seeder/dark-logo.png",
+            'site_logo'             => "seeder/white-logo.png",
+            'site_fav_dark'         => "seeder/dark-fav.png",
+            'site_fav'              => "seeder/white-fav.png",
             'web_version'           => "1.0.0",
             'admin_version'         => "2.5.0",
         ];

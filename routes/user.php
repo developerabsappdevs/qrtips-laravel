@@ -11,6 +11,7 @@ use App\Http\Controllers\User\AddMoneyController;
 use App\Http\Controllers\User\SecurityController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\SupportTicketController;
+use App\Http\Controllers\User\WithdrawMoneyController;
 
 Route::prefix("user")->name("user.")->group(function(){
     Route::controller(DashboardController::class)->group(function(){
@@ -63,6 +64,12 @@ Route::prefix("user")->name("user.")->group(function(){
         Route::get('authorize-card-info/{identifier}','authorizeCardInfo')->name('authorize.card.info');
         Route::post('authorize-payment-submit/{identifier}','authorizePaymentSubmit')->name('authorize.payment.submit');
 
+    });
+    Route::controller(WithdrawMoneyController::class)->middleware('kyc.verification.guard')->prefix('withdraw-money')->name('withdraw.money.')->group(function() { 
+        Route::get('/','index')->name('index');
+        Route::post('submit','submit')->name('submit');
+        Route::get('preview','preview')->name('preview');
+        Route::post('confirm','confirmMoneyOut')->name('confirm');
     });
 
     Route::controller(SecurityController::class)->prefix("security")->name('security.')->group(function(){

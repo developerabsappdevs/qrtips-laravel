@@ -11,7 +11,7 @@
             </div>
             <div class="sidebar-menu-wrapper">
                 <ul class="sidebar-menu">
-                    <li class="sidebar-menu-item active">
+                    <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.dashboard') }}">
                             <i class="menu-icon las la-palette"></i>
                             <span class="menu-title">{{ __("Dashboard") }}</span>
@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="withdraw.html">
+                        <a href="{{ setRoute('user.withdraw.money.index') }}">
                             <i class="menu-icon las la-cloud-upload-alt"></i>
                             <span class="menu-title">{{ __("Withdraw") }}</span>
                         </a>
@@ -33,6 +33,12 @@
                         <a href="transaction-logs.html">
                             <i class="menu-icon las la-receipt"></i>
                             <span class="menu-title">{{ __("Transaction Logs") }}</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ setRoute('user.authorize.kyc') }}" class="nav-link">
+                            <i class="menu-icon las la-user-alt"></i>
+                            <span class="menu-title">{{ __("KYC Verification") }}</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">

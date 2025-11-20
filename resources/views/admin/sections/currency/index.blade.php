@@ -31,26 +31,6 @@
             @includeUnless($default_currency,'admin.components.alerts.warning',['message' => "There is no default currency in your system."])
                 <div class="table-header">
                     <h5 class="title">{{ __("Setup Currency") }}</h5>
-                    <div class="table-btn-area">
-                        <div class="action-btn-wrapper">
-                            <button class="btn--base table-header-action-btn outline">{{ __("Action") }} <i class="las la-angle-down"></i></button>
-                            <ul class="action-btn-list">
-                                <li><button class="enable-btn">{{ __("Enable") }}</button></li>
-                                <li><button class="disable-btn">{{ __("Disable") }}</button></li>
-                            </ul>
-                        </div>
-
-                        @include('admin.components.search-input',[
-                            'name'  => 'currency_search',
-                        ])
-
-                        @include('admin.components.link.add-default',[
-                            'text'          => __("Add Currency"),
-                            'href'          => "#currency-add",
-                            'class'         => "modal-btn",
-                            'permission'    => "admin.currency.store",
-                        ])
-                    </div>
                 </div>
 
                 <div class="table-responsive">

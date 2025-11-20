@@ -15,13 +15,9 @@ class SetupKycSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            'slug'          => "user",
-            'user_type'     => "USER",
-            'status'        => true,
-            'last_edit_by'  => 1,  
-        ];
-
-        SetupKyc::updateOrCreate($data);
+        $setup_kycs = array(
+            array('slug' => 'user','user_type' => 'USER','fields' => '[{"type":"text","label":"NID","name":"nid","required":true,"validation":{"max":"30","mimes":[],"min":"10","options":[],"required":true}},{"type":"text","label":"Passport","name":"passport","required":true,"validation":{"max":"30","mimes":[],"min":"10","options":[],"required":true}},{"type":"text","label":"Driving Licensee","name":"driving_licensee","required":true,"validation":{"max":30,"mimes":[],"min":10,"options":[],"required":true}}]','status' => '1','last_edit_by' => '1','created_at' => now(),'updated_at' => now()),  
+        );
+        SetupKyc::insert($setup_kycs);
     }
 }

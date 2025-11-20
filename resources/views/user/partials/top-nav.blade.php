@@ -18,42 +18,26 @@
                         <h5 class="title">{{ __("Notification") }}</h5>
                     </div>
                     <ul class="notification-list">
+                         @forelse (get_user_notifications(5) ?? [] as $item)
                         <li>
                             <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/client/client-1.jpg') }}" alt="user">
+                                <img src="{{ $item->message->image }}" alt="user" />
                             </div>
                             <div class="content">
                                 <div class="title-area">
-                                    <h5 class="title">Cristina Pride</h5>
-                                    <span class="time">Thu 3.30PM</span>
+                                    <h5 class="title">{{ __($item->message->title) }}</h5> 
+                                    <span class="time">{{ $item->created_at->diffForHumans() }}</span>
                                 </div>
-                                <span class="sub-title">Hi, How are you? What about our next meeting</span>
+                                <span class="sub-title">{{ @$item->message->message ?? "" }}</span>
                             </div>
                         </li>
+                        @empty
                         <li>
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/client/client-2.jpg') }}" alt="user">
-                            </div>
-                            <div class="content">
-                                <div class="title-area">
-                                    <h5 class="title">Add money request</h5>
-                                    <span class="time">Thu 3.30PM</span>
-                                </div>
-                                <span class="sub-title">Hi, How are you? What about our next meeting</span>
+                            <div class="content"> 
+                                <span class="sub-title">{{ __('Notification Not Found') }}</span>
                             </div>
                         </li>
-                        <li>
-                            <div class="thumb">
-                                <img src="{{ asset('public/frontend/images/client/client-3.jpg') }}" alt="user">
-                            </div>
-                            <div class="content">
-                                <div class="title-area">
-                                    <h5 class="title">Money out request</h5>
-                                    <span class="time">Thu 3.30PM</span>
-                                </div>
-                                <span class="sub-title">Hi, How are you? What about our next meeting</span>
-                            </div>
-                        </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>

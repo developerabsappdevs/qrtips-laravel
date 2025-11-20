@@ -1,12 +1,6 @@
 <table class="custom-table currency-search-table">
     <thead>
         <tr>
-            <th>
-                <div class="d-flex align-items-center select-check-input">
-                    <input type="checkbox" name="select_all" id="select-all" >
-                    <label for="select-all" class="form-check-label mb-0">{{ __("Select All") }}</label>
-                </div>
-            </th>
             <th></th>
             <th>{{ __("Name") }} | {{ __("Code") }}</th>
             <th>{{ __("Symbol") }}</th>
@@ -19,14 +13,6 @@
     <tbody>
         @forelse ($currencies ?? [] as $item)
             <tr data-item="{{ $item->editData }}">
-                @if ($item->isDefault())
-                    <td></td>
-                @else
-                <td>
-                    <input type="checkbox" class="w-auto" id="currency-{{ $item->id }}" name="select_currency[]" value="{{ $item->id }}">
-                </td>
-                @endif
-
                 <td>
                     <ul class="user-list">
                         <li><img src="{{ get_image($item->flag,'currency-flag') }}" alt="flag"></li>
@@ -65,13 +51,6 @@
                         'class'         => "edit-modal-button",
                         'permission'    => "admin.currency.update",
                     ])
-                    @if (!$item->isDefault())
-                        @include('admin.components.link.delete-default',[
-                            'href'          => "javascript:void(0)",
-                            'class'         => "delete-modal-button",
-                            'permission'    => "admin.currency.delete",
-                        ])
-                    @endif
                 </td>
             </tr>
         @empty

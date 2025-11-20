@@ -6,8 +6,10 @@ use Illuminate\Support\Str;
 use App\Constants\GlobalConst;
 use App\Models\Admin\Language;
 use App\Constants\LanguageConst;
+use App\Models\UserNotification;
 use App\Constants\AdminRoleConst;
 use App\Constants\ExtensionConst;
+use App\Models\Admin\SMSProvider;
 use App\Models\UserAuthorization;
 use Illuminate\Http\UploadedFile;
 use App\Models\Admin\AdminHasRole;
@@ -22,7 +24,6 @@ use Intervention\Image\Facades\Image;
 use App\Constants\PaymentGatewayConst;
 use Buglinjo\LaravelWebp\Facades\Webp;
 use App\Models\Admin\AdminNotification;
-use App\Models\Admin\SMSProvider;
 use App\Providers\Admin\CurrencyProvider;
 use App\Providers\Admin\BasicSettingsProvider;
 use Illuminate\Validation\ValidationException;
@@ -1565,7 +1566,57 @@ function generate_google_2fa_auth_qr() {
     $qr_image = 'https://qrcode.tec-it.com/API/QRCode?data='.$generate_text;
     return $qr_image;
 }
+function getTrxNum($length = 8)
+{
+    $characters = '123456789';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+function get_user_notifications($quantity = 100)
+{
+    if(auth()->guard('web')->check()){ 
+        $notifications = UserNotification::where('user_id', auth()->user()->id)->latest()->take($quantity)->get();
+        return $notifications;
+    } 
+}
+function send_push_notification(array $users,array $data) {
+    $basic_settings = BasicSettingsProvider::get();
+    if(!$basic_settings) {
+        return false;
+    }
+    $notification_config = $basic_settings->push_notification_config;
+    if(!$notification_config) {
+        return false;
+    }
+    $instance_id    = $notification_config->instance_id ?? null;
+    $primary_key    = $notification_config->primary_key ?? null;
+    if($instance_id == null || $primary_key == null) {
+        return false;
+    }
+    $notification = new PushNotifications(
+        array(
+            "instanceId" => $notification_config->instance_id,
+            "secretKey" => $notification_config->primary_key,
+        )
+    );
 
+    $notification_data = $data;
+
+    $response = $notification->publishToUsers(
+        $users,
+        [
+            "web"   => [
+                "notification" => $notification_data,
+            ],
+        ],
+    );
+
+    return $response;
+}
 
 function get_system_role_permissions(){
     $permissions = config('system-role-permissions');

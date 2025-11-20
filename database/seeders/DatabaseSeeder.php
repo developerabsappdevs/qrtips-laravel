@@ -12,6 +12,7 @@ use Database\Seeders\Admin\SetupKycSeeder;
 use Database\Seeders\Admin\SetupSeoSeeder;
 use Database\Seeders\Admin\ExtensionSeeder;
 use Database\Seeders\Admin\SetupPageSeeder;
+use Database\Seeders\User\UserWalletSeeder;
 use Database\Seeders\Admin\UsefulLinkSeeder;
 use Database\Seeders\Admin\AppSettingsSeeder;
 use Database\Seeders\Admin\AdminHasRoleSeeder;
@@ -44,6 +45,7 @@ class DatabaseSeeder extends Seeder
             ExtensionSeeder::class,
             AdminHasRoleSeeder::class,
             UserSeeder::class,
+            UserWalletSeeder::class,
             SetupPageSeeder::class,
             LanguageSeeder::class,
             UsefulLinkSeeder::class,

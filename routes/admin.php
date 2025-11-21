@@ -33,6 +33,7 @@ use App\Http\Controllers\Admin\BroadcastingController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\SetupSectionsController;
 use App\Http\Controllers\Admin\SupportTicketController;
+use App\Http\Controllers\Admin\WithdrawMoneyController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\PaymentGatewaysController;
 use App\Http\Controllers\Frontend\AnnouncementController;
@@ -119,6 +120,17 @@ Route::name('admin.')->group(function () {
             Route::get('pending', 'pending')->name('pending');
             Route::get('complete', 'complete')->name('complete');
             Route::get('canceled', 'canceled')->name('canceled');
+        });
+        // Withdraw Money Logs
+        Route::controller(WithdrawMoneyController::class)->prefix('withdraw-money')->name('withdraw.money.')->group(function () {
+            Route::get('index', 'index')->name('index');
+            Route::get('pending', 'pending')->name('pending');
+            Route::get('complete', 'complete')->name('complete');
+            Route::get('canceled', 'canceled')->name('canceled');
+            Route::get('details/{id}', 'moneyOutDetails')->name('details');
+            Route::put('approved', 'approved')->name('approved');
+            Route::put('rejected', 'rejected')->name('rejected');
+            Route::post('search','search')->name("search");
         });
 
         // User Care Section

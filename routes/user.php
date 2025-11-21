@@ -8,6 +8,7 @@ use App\Providers\Admin\BasicSettingsProvider;
 use Pusher\PushNotifications\PushNotifications;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\AddMoneyController;
+use App\Http\Controllers\User\MyQrCodeController;
 use App\Http\Controllers\User\SecurityController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\SupportTicketController;
@@ -66,6 +67,12 @@ Route::prefix("user")->name("user.")->group(function(){
 
     });
     Route::controller(WithdrawMoneyController::class)->middleware('kyc.verification.guard')->prefix('withdraw-money')->name('withdraw.money.')->group(function() { 
+        Route::get('/','index')->name('index');
+        Route::post('submit','submit')->name('submit');
+        Route::get('preview','preview')->name('preview');
+        Route::post('confirm','confirmMoneyOut')->name('confirm');
+    });
+    Route::controller(MyQrCodeController::class)->middleware('kyc.verification.guard')->prefix('my-qr-code')->name('my.qr.code.')->group(function() { 
         Route::get('/','index')->name('index');
         Route::post('submit','submit')->name('submit');
         Route::get('preview','preview')->name('preview');

@@ -31,7 +31,7 @@
                     @method("PUT")
                     <div class="profile-settings-wrapper">
                         <div class="profile-thumb-content">
-                            <div class="profile-thumb">
+                            <div class="profile-thumb preview-thumb">
                                 <div class="avatar-preview">
                                     <div class="profilePicPreview bg_img" data-background="{{ auth()->user()->userImage }}"></div>
                                 </div>
@@ -44,7 +44,9 @@
                                 <h6 class="username">{{ auth()->user()->username }}</h6>
                                 <ul class="user-info-list mt-md-2">
                                     <li><i class="las la-envelope"></i>{{ auth()->user()->email }}</li>
-                                    <li><i class="las la-user-circle"></i>{{ auth()->user()->phone }}</li>
+                                    @isset(auth()->user()->mobile)
+                                        <li><i class="las la-user-circle"></i>{{ auth()->user()->mobile }}</li>
+                                    @endisset
                                 </ul>
                             </div>
                         </div>

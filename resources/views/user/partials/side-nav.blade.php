@@ -18,7 +18,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="my-qrcode.html">
+                        <a href="{{ setRoute('user.my.qr.code.index') }}">
                             <i class="menu-icon fa-solid fa-qrcode"></i>
                             <span class="menu-title">{{ __("My QR") }}</span>
                         </a>

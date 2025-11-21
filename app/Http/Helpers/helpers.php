@@ -16,6 +16,7 @@ use App\Models\Admin\AdminHasRole;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Constants\NotificationConst;
+use App\Models\Admin\PaymentGateway;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Constants\SupportTicketConst;
@@ -436,6 +437,9 @@ function files_path($slug)
         'sms-provider'    => [
             'path'              => 'backend/images/sms-provider',
         ],
+        'transaction'   => [
+            'path'      => 'frontend/files/transaction',
+        ],
     ];
 
     return (object) $data[$slug];
@@ -564,7 +568,12 @@ function get_fav($basic_settings = null, $type = null)
 
     return $fav;
 }
+function get_gateway_image($gateway_id){
+    $gateway = PaymentGateway::where('id',$gateway_id)->first();
+    $image = get_image($gateway->image,"payment-gateways");
+    return $image;
 
+}
 function upload_files_from_path_static($files_path, $destination_path, $old_files = null, $crop = true, $compress = false, $crop_position = "center")
 {
     $output_files_name = [];

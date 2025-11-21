@@ -85,24 +85,24 @@
                                 ],
                             ],
                             [
-                                'title'             => "Money Out Logs",
+                                'title'             => "Withdraw Money Logs",
                                 'icon'              => "menu-icon las la-sign-out-alt",
                                 'links'     => [
                                     [
                                         'title'     => "Pending Logs",
-                                        'route'     => "admin.money.out.pending",
+                                        'route'     => "admin.withdraw.money.pending",
                                     ],
                                     [
                                         'title'     => "Completed Logs",
-                                        'route'     => "admin.money.out.complete",
+                                        'route'     => "admin.withdraw.money.complete",
                                     ],
                                     [
                                         'title'     => "Canceled Logs",
-                                        'route'     => "admin.money.out.canceled",
+                                        'route'     => "admin.withdraw.money.canceled",
                                     ],
                                     [
                                         'title'     => "All Logs",
-                                        'route'     => "admin.money.out.index",
+                                        'route'     => "admin.withdraw.money.index",
                                     ]
                                 ],
                             ],

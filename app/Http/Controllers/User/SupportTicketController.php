@@ -95,7 +95,7 @@ class SupportTicketController extends Controller
             }
         }
 
-        return back()->with(['success' => ['Support ticket created successfully!']]);
+        return redirect()->route('user.support.ticket.index')->with(['success' => ['Support ticket created successfully!']]);
         
     }
 

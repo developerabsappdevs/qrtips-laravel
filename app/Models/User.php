@@ -26,8 +26,29 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'id' => 'integer', 
+        'firstname' => 'string',
+        'lastname' => 'string',
+        'username' => 'string',
+        'email' => 'string',
+        'mobile_code' => 'string',
+        'mobile' => 'string',
+        'full_mobile' => 'string',
+        'password' => 'string',
+        'refferal_user_id' => 'integer',
+        'image' => 'string',
+        'email_verified_at' => 'datetime',
+        'email_verified' => 'integer', 
+        'sms_verified' => 'integer', 
+        'kyc_verified' => 'integer', 
+        'two_factor_verified' => 'integer', 
+        'two_factor_secret' => 'string', 
+        'two_factor_status' => 'integer', 
+        'email_verified_at' => 'datetime',
+        'address'           => 'object',
+        'status' => 'integer', 
+        'created_at'           => 'datetime',
+        'updated_at'           => 'datetime',
     ];
 
     /**
